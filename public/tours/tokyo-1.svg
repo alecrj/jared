@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">
+  <defs>
+    <linearGradient id="tokyoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#dc2626;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#7c2d12;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect width="800" height="600" fill="url(#tokyoGrad)"/>
+  <rect x="50" y="100" width="700" height="400" fill="#fde68a" rx="20" opacity="0.9"/>
+  <!-- Sushi pieces -->
+  <ellipse cx="200" cy="200" rx="40" ry="20" fill="#f59e0b"/>
+  <ellipse cx="300" cy="250" rx="40" ry="20" fill="#d97706"/>
+  <ellipse cx="500" cy="200" rx="40" ry="20" fill="#f59e0b"/>
+  <ellipse cx="600" cy="250" rx="40" ry="20" fill="#d97706"/>
+  <!-- Chopsticks -->
+  <line x1="350" y1="350" x2="450" y2="320" stroke="#7c2d12" stroke-width="8"/>
+  <line x1="350" y1="370" x2="450" y2="340" stroke="#7c2d12" stroke-width="8"/>
+  <!-- Text -->
+  <text x="400" y="480" text-anchor="middle" fill="#7c2d12" font-family="Arial, sans-serif" font-size="32" font-weight="bold">Tokyo Culinary Secrets</text>
+  <text x="400" y="510" text-anchor="middle" fill="#7c2d12" font-family="Arial, sans-serif" font-size="18">Master the Art of Japanese Cuisine</text>
+</svg>

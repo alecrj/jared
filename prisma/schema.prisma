@@ -1,0 +1,276 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  TRAVELER
+  LEADER
+  ADMIN
+}
+
+enum ConquistaTourStatus {
+  DRAFT
+  PENDING_APPROVAL
+  APPROVED
+  LIVE
+  PAUSED
+  CANCELLED
+}
+
+enum BookingStatus {
+  PENDING
+  CONFIRMED
+  CANCELLED
+  REFUNDED
+}
+
+enum PaymentType {
+  DEPOSIT
+  BALANCE
+  REFUND
+}
+
+enum PaymentStatus {
+  PENDING
+  COMPLETED
+  FAILED
+  REFUNDED
+}
+
+enum CancellationPolicy {
+  FLEXIBLE
+  MODERATE
+  STRICT
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  phone     String?
+  role      UserRole @default(TRAVELER)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  profile           Profile?
+  leaderApplication LeaderApplication?
+  conquistatours    ConquistaTour[]
+  bookings          Booking[]
+  messagesSent      Message[] @relation("MessageSender")
+  messagesReceived  Message[] @relation("MessageReceiver")
+  reviews           Review[]
+  adminActions      AdminAction[]
+
+  @@map("users")
+}
+
+model Profile {
+  id                 String  @id @default(cuid())
+  userId             String  @unique
+  firstName          String
+  lastName           String
+  displayName        String
+  avatarUrl          String?
+  bio                String?
+  socialLinks        String? // JSON as string for SQLite
+  culinaryBackground String?
+  verificationStatus String  @default("unverified")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("profiles")
+}
+
+model LeaderApplication {
+  id                   String  @id @default(cuid())
+  userId               String  @unique
+  status               String  @default("PENDING")
+  culinaryExperience   String
+  previousTours        String?
+  businessLicense      String?
+  insuranceProof       String?
+  references           String? // JSON as string for SQLite
+  notes                String?
+  createdAt            DateTime @default(now())
+  updatedAt            DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("leader_applications")
+}
+
+model ConquistaTour {
+  id                 String              @id @default(cuid())
+  leaderId           String
+  title              String
+  slug               String              @unique
+  tagline            String
+  description        String
+  cuisineTypes       String              // Comma-separated for SQLite
+  location           String
+  duration           Int
+  difficulty         String              @default("All Levels")
+  groupSize          Int
+  inclusions         String              // JSON as string
+  exclusions         String              // JSON as string  
+  highlights         String              // JSON as string
+  itinerary          String              // JSON as string
+  heroImages         String              // JSON as string
+  galleryImages      String              // JSON as string
+  videoUrl           String?
+  pricePerPerson     Int
+  depositPercentage  Float               @default(0.25)
+  cancellationPolicy CancellationPolicy  @default(MODERATE)
+  minAge             Int                 @default(18)
+  maxAge             Int?
+  status             ConquistaTourStatus @default(DRAFT)
+  adminNotes         String?
+  featuredOrder      Int?
+  createdAt          DateTime            @default(now())
+  updatedAt          DateTime            @updatedAt
+
+  leader     User         @relation(fields: [leaderId], references: [id])
+  departures Departure[]
+  reviews    Review[]
+
+  @@map("conquistatours")
+}
+
+model Departure {
+  id               String              @id @default(cuid())
+  conquistatourId  String
+  startDate        DateTime
+  endDate          DateTime
+  availableSpots   Int
+  status           ConquistaTourStatus @default(LIVE)
+  createdAt        DateTime            @default(now())
+
+  conquistatour ConquistaTour @relation(fields: [conquistatourId], references: [id])
+  bookings      Booking[]
+
+  @@map("departures")
+}
+
+model Booking {
+  id              String        @id @default(cuid())
+  departureId     String
+  travelerId      String
+  participants    Int           @default(1)
+  status          BookingStatus @default(PENDING)
+  totalPrice      Int
+  depositAmount   Int
+  balanceDueAt    DateTime
+  paidDeposit     Boolean       @default(false)
+  paidBalance     Boolean       @default(false)
+  specialRequests String?
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+
+  departure Departure  @relation(fields: [departureId], references: [id])
+  traveler  User       @relation(fields: [travelerId], references: [id])
+  travelers Traveler[]
+  payments  Payment[]
+  messages  Message[]
+  refunds   Refund[]
+
+  @@map("bookings")
+}
+
+model Traveler {
+  id                  String    @id @default(cuid())
+  bookingId           String
+  firstName           String
+  lastName            String
+  email               String
+  phone               String?
+  dateOfBirth         DateTime?
+  dietaryRestrictions String?
+  emergencyContact    String    // JSON as string
+  passportInfo        String?   // JSON as string
+
+  booking Booking @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+
+  @@map("travelers")
+}
+
+model Payment {
+  id                    String        @id @default(cuid())
+  bookingId             String
+  type                  PaymentType
+  amount                Int
+  stripePaymentIntentId String?
+  status                PaymentStatus @default(PENDING)
+  createdAt             DateTime      @default(now())
+
+  booking Booking  @relation(fields: [bookingId], references: [id])
+  refunds Refund[]
+
+  @@map("payments")
+}
+
+model Refund {
+  id        String        @id @default(cuid())
+  paymentId String
+  bookingId String
+  amount    Int
+  reason    String
+  status    PaymentStatus @default(PENDING)
+  createdAt DateTime      @default(now())
+
+  payment Payment @relation(fields: [paymentId], references: [id])
+  booking Booking @relation(fields: [bookingId], references: [id])
+
+  @@map("refunds")
+}
+
+model Review {
+  id              String   @id @default(cuid())
+  conquistatourId String
+  travelerId      String
+  rating          Int
+  title           String?
+  content         String?
+  foodRating      Int?
+  guideRating     Int?
+  valueRating     Int?
+  images          String   // JSON as string
+  createdAt       DateTime @default(now())
+
+  conquistatour ConquistaTour @relation(fields: [conquistatourId], references: [id])
+  traveler      User          @relation(fields: [travelerId], references: [id])
+
+  @@map("reviews")
+}
+
+model Message {
+  id        String   @id @default(cuid())
+  bookingId String
+  fromId    String
+  toId      String
+  content   String
+  createdAt DateTime @default(now())
+
+  booking Booking @relation(fields: [bookingId], references: [id])
+  from    User    @relation("MessageSender", fields: [fromId], references: [id])
+  to      User    @relation("MessageReceiver", fields: [toId], references: [id])
+
+  @@map("messages")
+}
+
+model AdminAction {
+  id         String   @id @default(cuid())
+  adminId    String
+  targetType String
+  targetId   String
+  action     String
+  notes      String?
+  createdAt  DateTime @default(now())
+
+  admin User @relation(fields: [adminId], references: [id])
+
+  @@map("admin_actions")
+}

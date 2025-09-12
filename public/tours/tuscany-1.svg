@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">
+  <defs>
+    <linearGradient id="tuscanyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f59e0b;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#d97706;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect width="800" height="600" fill="url(#tuscanyGrad)"/>
+  <rect x="50" y="100" width="700" height="400" fill="#fef3c7" rx="20" opacity="0.9"/>
+  <!-- Wine bottles -->
+  <rect x="200" y="180" width="30" height="100" fill="#7c2d12" rx="5"/>
+  <rect x="250" y="200" width="30" height="80" fill="#7c2d12" rx="5"/>
+  <rect x="520" y="180" width="30" height="100" fill="#7c2d12" rx="5"/>
+  <rect x="570" y="200" width="30" height="80" fill="#7c2d12" rx="5"/>
+  <!-- Pasta plate -->
+  <ellipse cx="400" cy="320" rx="100" ry="40" fill="#fbbf24"/>
+  <path d="M 350 320 Q 400 280 450 320 Q 400 360 350 320" fill="#d97706"/>
+  <!-- Text -->
+  <text x="400" y="480" text-anchor="middle" fill="#7c2d12" font-family="Arial, sans-serif" font-size="32" font-weight="bold">Tuscan Wine &amp; Food Paradise</text>
+  <text x="400" y="510" text-anchor="middle" fill="#7c2d12" font-family="Arial, sans-serif" font-size="18">Experience Authentic Italian Cuisine</text>
+</svg>

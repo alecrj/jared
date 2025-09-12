@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">
+  <defs>
+    <linearGradient id="barcelonaGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#d97706;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#dc2626;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect width="800" height="600" fill="url(#barcelonaGrad)"/>
+  <rect x="50" y="100" width="700" height="400" fill="#fed7aa" rx="20" opacity="0.9"/>
+  <!-- Tapas plates -->
+  <circle cx="250" cy="200" r="60" fill="#fbbf24"/>
+  <circle cx="550" cy="200" r="60" fill="#f59e0b"/>
+  <circle cx="400" cy="350" r="80" fill="#d97706"/>
+  <!-- Text -->
+  <text x="400" y="500" text-anchor="middle" fill="#7c2d12" font-family="Arial, sans-serif" font-size="32" font-weight="bold">Barcelona Tapas Adventure</text>
+  <text x="400" y="530" text-anchor="middle" fill="#7c2d12" font-family="Arial, sans-serif" font-size="18">Authentic Spanish Cuisine Experience</text>
+</svg>
