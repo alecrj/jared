@@ -67,9 +67,9 @@ export async function GET(request: NextRequest) {
       },
       summary: {
         totalBookings: total,
-        totalRevenue: bookings.reduce((sum, booking) => sum + booking.totalPrice, 0),
-        averageBookingSize: bookings.length > 0 ? 
-          bookings.reduce((sum, booking) => sum + booking.participants, 0) / bookings.length : 0
+        totalRevenue: bookings.reduce((sum: number, booking) => sum + booking.totalPrice, 0),
+        averageBookingSize: bookings.length > 0 ?
+          bookings.reduce((sum: number, booking) => sum + booking.participants, 0) / bookings.length : 0
       }
     })
 
