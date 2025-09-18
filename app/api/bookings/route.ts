@@ -50,7 +50,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Calculate current bookings
-    const currentBookings = departure.bookings.reduce((sum, booking) => sum + booking.participants, 0)
+    const currentBookings = departure.bookings.reduce((sum: number, booking: any) => sum + booking.participants, 0)
     
     if (currentBookings + validatedData.participants > departure.availableSpots) {
       return NextResponse.json(
