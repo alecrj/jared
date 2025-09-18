@@ -15,13 +15,32 @@ interface ToursGridProps {
 export function ToursGrid({ tours, currentPage, totalPages, baseUrl }: ToursGridProps) {
   if (tours.length === 0) {
     return (
-      <div className="text-center py-16">
-        <div className="bg-gray-50 rounded-2xl p-12">
-          <h3 className="heading-lg text-gray-600 mb-4">No experiences found</h3>
-          <p className="body-base text-gray-600 mb-6">
+      <div style={{ textAlign: 'center', padding: '4rem 0' }}>
+        <div style={{
+          background: 'rgba(255, 255, 255, 0.8)',
+          backdropFilter: 'blur(20px)',
+          borderRadius: '20px',
+          padding: '3rem',
+          border: '1px solid rgba(15, 20, 25, 0.1)',
+          boxShadow: 'var(--shadow-lg)'
+        }}>
+          <h3 style={{
+            fontSize: '1.5rem',
+            fontWeight: '600',
+            color: 'var(--color-neutral-600)',
+            marginBottom: '1rem'
+          }}>
+            No experiences found
+          </h3>
+          <p style={{
+            fontSize: '1rem',
+            color: 'var(--color-neutral-600)',
+            marginBottom: '2rem',
+            lineHeight: '1.6'
+          }}>
             Try adjusting your filters or search terms to find more experiences.
           </p>
-          <Link href="/conquistatour" className="btn btn-primary btn-md">
+          <Link href="/conquistatour" className="btn btn-primary">
             View all experiences
           </Link>
         </div>
@@ -32,7 +51,7 @@ export function ToursGrid({ tours, currentPage, totalPages, baseUrl }: ToursGrid
   return (
     <>
       {/* Experiences Grid */}
-      <div className="grid-auto mb-16">
+      <div className="cards" style={{ marginBottom: '4rem' }}>
         {tours.map((tour, index) => (
           <ConquistaTourCard key={tour.id} tour={tour} index={index} />
         ))}
@@ -40,21 +59,47 @@ export function ToursGrid({ tours, currentPage, totalPages, baseUrl }: ToursGrid
 
       {/* Pagination */}
       {totalPages > 1 && (
-        <div className="flex items-center justify-center space-x-2">
+        <div style={{ 
+          display: 'flex', 
+          alignItems: 'center', 
+          justifyContent: 'center', 
+          gap: '0.5rem',
+          padding: '2rem 0'
+        }}>
           {currentPage > 1 && (
-            <Button
-              asChild
-              variant="outline"
-              size="sm"
+            <Link 
+              href={`${baseUrl}?page=${currentPage - 1}`}
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                padding: '12px 20px',
+                borderRadius: '50px',
+                fontSize: '0.875rem',
+                fontWeight: '500',
+                background: 'rgba(255, 255, 255, 0.8)',
+                backdropFilter: 'blur(10px)',
+                border: '1px solid rgba(15, 20, 25, 0.1)',
+                color: 'var(--color-neutral-600)',
+                textDecoration: 'none',
+                transition: 'all 0.3s ease'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = 'rgba(255, 255, 255, 1)'
+                e.currentTarget.style.transform = 'translateY(-2px)'
+                e.currentTarget.style.boxShadow = 'var(--shadow-md)'
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = 'rgba(255, 255, 255, 0.8)'
+                e.currentTarget.style.transform = 'translateY(0)'
+                e.currentTarget.style.boxShadow = 'none'
+              }}
             >
-              <Link href={`${baseUrl}?page=${currentPage - 1}`}>
-                <ChevronLeft className="w-4 h-4 mr-1" />
-                Previous
-              </Link>
-            </Button>
+              <ChevronLeft className="w-4 h-4 mr-1" />
+              Previous
+            </Link>
           )}
 
-          <div className="flex items-center space-x-1">
+          <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
             {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
               let pageNum
               if (totalPages <= 5) {
@@ -67,33 +112,83 @@ export function ToursGrid({ tours, currentPage, totalPages, baseUrl }: ToursGrid
                 pageNum = currentPage - 2 + i
               }
 
+              const isActive = currentPage === pageNum
+
               return (
-                <Button
+                <Link
                   key={pageNum}
-                  asChild
-                  variant={currentPage === pageNum ? "default" : "outline"}
-                  size="sm"
-                  className="min-w-[40px]"
+                  href={`${baseUrl}?page=${pageNum}`}
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    width: '44px',
+                    height: '44px',
+                    borderRadius: '50%',
+                    fontSize: '0.875rem',
+                    fontWeight: '600',
+                    background: isActive 
+                      ? 'linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-light) 100%)' 
+                      : 'rgba(255, 255, 255, 0.8)',
+                    backdropFilter: 'blur(10px)',
+                    border: `1px solid ${isActive ? 'transparent' : 'rgba(15, 20, 25, 0.1)'}`,
+                    color: isActive ? 'white' : 'var(--color-neutral-600)',
+                    textDecoration: 'none',
+                    transition: 'all 0.3s ease',
+                    boxShadow: isActive ? 'var(--shadow-md)' : 'none'
+                  }}
+                  onMouseEnter={(e) => {
+                    if (!isActive) {
+                      e.currentTarget.style.background = 'rgba(255, 255, 255, 1)'
+                      e.currentTarget.style.transform = 'translateY(-2px)'
+                      e.currentTarget.style.boxShadow = 'var(--shadow-sm)'
+                    }
+                  }}
+                  onMouseLeave={(e) => {
+                    if (!isActive) {
+                      e.currentTarget.style.background = 'rgba(255, 255, 255, 0.8)'
+                      e.currentTarget.style.transform = 'translateY(0)'
+                      e.currentTarget.style.boxShadow = 'none'
+                    }
+                  }}
                 >
-                  <Link href={`${baseUrl}?page=${pageNum}`}>
-                    {pageNum}
-                  </Link>
-                </Button>
+                  {pageNum}
+                </Link>
               )
             })}
           </div>
 
           {currentPage < totalPages && (
-            <Button
-              asChild
-              variant="outline"
-              size="sm"
+            <Link 
+              href={`${baseUrl}?page=${currentPage + 1}`}
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                padding: '12px 20px',
+                borderRadius: '50px',
+                fontSize: '0.875rem',
+                fontWeight: '500',
+                background: 'rgba(255, 255, 255, 0.8)',
+                backdropFilter: 'blur(10px)',
+                border: '1px solid rgba(15, 20, 25, 0.1)',
+                color: 'var(--color-neutral-600)',
+                textDecoration: 'none',
+                transition: 'all 0.3s ease'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = 'rgba(255, 255, 255, 1)'
+                e.currentTarget.style.transform = 'translateY(-2px)'
+                e.currentTarget.style.boxShadow = 'var(--shadow-md)'
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = 'rgba(255, 255, 255, 0.8)'
+                e.currentTarget.style.transform = 'translateY(0)'
+                e.currentTarget.style.boxShadow = 'none'
+              }}
             >
-              <Link href={`${baseUrl}?page=${currentPage + 1}`}>
-                Next
-                <ChevronRight className="w-4 h-4 ml-1" />
-              </Link>
-            </Button>
+              Next
+              <ChevronRight className="w-4 h-4 ml-1" />
+            </Link>
           )}
         </div>
       )}

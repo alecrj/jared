@@ -1,6 +1,8 @@
 import { PrismaClient } from '@prisma/client'
+import Link from 'next/link'
 import { ToursGrid } from '@/components/conquistatour/tours-grid'
 import { TourFilters } from '@/components/conquistatour/tour-filters'
+import NavScrollHandler from '../components/NavScrollHandler'
 
 const prisma = new PrismaClient()
 
@@ -114,52 +116,102 @@ export default async function ToursPage({ searchParams }: ToursPageProps) {
   })
 
   return (
-    <div className="min-h-screen bg-white">
-      <div className="container">
-        {/* Header */}
-        <div className="section text-center">
-          <h1 className="display-lg text-gray-800 mb-6">
-            Culinary experiences
-          </h1>
-          <p className="body-xl text-gray-600 max-w-2xl mx-auto">
-            Discover authentic food culture through hands-on experiences with passionate local hosts
-          </p>
-        </div>
-
-        {/* Filters and Results */}
-        <div className="section">
-          <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-            <div className="lg:col-span-1">
-              <TourFilters
-                availableCuisines={Array.from(allCuisines).sort()}
-                currentFilters={params}
-              />
+    <>
+      <NavScrollHandler />
+      
+      {/* Modern Navigation */}
+      <nav className="nav">
+        <div className="container">
+          <div className="nav-content">
+            <Link href="/" className="logo">
+              Conquistador
+            </Link>
+            <div className="nav-links">
+              <Link href="/conquistatour">Experiences</Link>
+              <Link href="/leader/apply">Host</Link>
+              <Link href="/auth/login">Login</Link>
             </div>
-            
-            <div className="lg:col-span-3">
-              <div className="mb-8 flex items-center justify-between">
-                <p className="body-base text-gray-600">
-                  {total === 1 
-                    ? '1 experience'
-                    : `${total} experiences`
-                  }
-                </p>
-                <div className="caption text-gray-500">
-                  Page {page} of {totalPages}
-                </div>
+          </div>
+        </div>
+      </nav>
+
+      <div className="min-h-screen" style={{ background: 'linear-gradient(135deg, #f8fafc 0%, #ffffff 100%)' }}>
+        <div className="container" style={{ paddingTop: '120px' }}>
+          {/* Header */}
+          <div className="section text-center">
+            <h1 style={{ 
+              fontSize: 'clamp(2.5rem, 5vw, 3.5rem)', 
+              fontWeight: '700', 
+              color: 'var(--color-primary)', 
+              marginBottom: '1.5rem',
+              letterSpacing: '-0.02em',
+              lineHeight: '1.2'
+            }}>
+              Unique experiences
+            </h1>
+            <p style={{
+              fontSize: '1.2rem',
+              color: 'var(--color-neutral-600)',
+              maxWidth: '700px',
+              margin: '0 auto 4rem',
+              lineHeight: '1.7'
+            }}>
+              Discover authentic adventures and cultural experiences with passionate local guides around the world
+            </p>
+          </div>
+
+          {/* Filters and Results */}
+          <div className="section">
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 3fr', gap: '3rem', alignItems: 'start' }}>
+              <div>
+                <TourFilters
+                  availableCuisines={Array.from(allCuisines).sort()}
+                  currentFilters={params}
+                />
               </div>
               
-              <ToursGrid 
-                tours={tours} 
-                currentPage={page}
-                totalPages={totalPages}
-                baseUrl="/conquistatour"
-              />
+              <div>
+                <div style={{ 
+                  marginBottom: '2rem', 
+                  display: 'flex', 
+                  alignItems: 'center', 
+                  justifyContent: 'space-between',
+                  padding: '1.5rem',
+                  background: 'rgba(255, 255, 255, 0.8)',
+                  backdropFilter: 'blur(10px)',
+                  borderRadius: '16px',
+                  border: '1px solid rgba(15, 20, 25, 0.1)'
+                }}>
+                  <p style={{ 
+                    fontSize: '1rem',
+                    color: 'var(--color-neutral-600)',
+                    fontWeight: '500'
+                  }}>
+                    {total === 1 
+                      ? '1 experience found'
+                      : `${total} experiences found`
+                    }
+                  </p>
+                  <div style={{ 
+                    fontSize: '0.875rem',
+                    color: 'var(--color-neutral-500)'
+                  }}>
+                    Page {page} of {totalPages}
+                  </div>
+                </div>
+                
+                <ToursGrid 
+                  tours={tours} 
+                  currentPage={page}
+                  totalPages={totalPages}
+                  baseUrl="/conquistatour"
+                />
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   )
 }
 

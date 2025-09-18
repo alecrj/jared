@@ -88,14 +88,34 @@ export function TourFilters({ availableCuisines, currentFilters }: TourFiltersPr
     <>
       {/* Search */}
       <div className="space-y-4">
-        <div className="relative">
+        <div style={{ position: 'relative' }}>
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
           <input
             type="text"
-            placeholder="Search tours..."
+            placeholder="Search experiences..."
             value={filters.search}
             onChange={(e) => updateFilter('search', e.target.value)}
-            className="input w-full pl-10"
+            style={{
+              width: '100%',
+              padding: '12px 16px 12px 40px',
+              borderRadius: '50px',
+              border: '1px solid rgba(15, 20, 25, 0.1)',
+              background: 'rgba(255, 255, 255, 0.8)',
+              backdropFilter: 'blur(10px)',
+              fontSize: '0.875rem',
+              color: 'var(--color-primary)',
+              transition: 'all 0.3s ease'
+            }}
+            onFocus={(e) => {
+              e.currentTarget.style.borderColor = 'var(--color-accent)'
+              e.currentTarget.style.background = 'rgba(255, 255, 255, 1)'
+              e.currentTarget.style.boxShadow = '0 0 0 3px rgba(79, 70, 229, 0.1)'
+            }}
+            onBlur={(e) => {
+              e.currentTarget.style.borderColor = 'rgba(15, 20, 25, 0.1)'
+              e.currentTarget.style.background = 'rgba(255, 255, 255, 0.8)'
+              e.currentTarget.style.boxShadow = 'none'
+            }}
           />
         </div>
       </div>
@@ -104,16 +124,43 @@ export function TourFilters({ availableCuisines, currentFilters }: TourFiltersPr
 
       {/* Location */}
       <div className="space-y-4">
-        <div className="flex items-center gap-2">
-          <MapPin className="w-4 h-4 text-primary" />
-          <h3 className="heading-sm text-gray-800">Location</h3>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '1rem' }}>
+          <MapPin className="w-4 h-4" style={{ color: 'var(--color-accent)' }} />
+          <h3 style={{ 
+            fontSize: '1rem',
+            fontWeight: '600',
+            color: 'var(--color-primary)',
+            margin: 0
+          }}>
+            Location
+          </h3>
         </div>
         <input
           type="text"
           placeholder="Any destination..."
           value={filters.location}
           onChange={(e) => updateFilter('location', e.target.value)}
-          className="input"
+          style={{
+            width: '100%',
+            padding: '12px 16px',
+            borderRadius: '12px',
+            border: '1px solid rgba(15, 20, 25, 0.1)',
+            background: 'rgba(255, 255, 255, 0.8)',
+            backdropFilter: 'blur(10px)',
+            fontSize: '0.875rem',
+            color: 'var(--color-primary)',
+            transition: 'all 0.3s ease'
+          }}
+          onFocus={(e) => {
+            e.currentTarget.style.borderColor = 'var(--color-accent)'
+            e.currentTarget.style.background = 'rgba(255, 255, 255, 1)'
+            e.currentTarget.style.boxShadow = '0 0 0 3px rgba(79, 70, 229, 0.1)'
+          }}
+          onBlur={(e) => {
+            e.currentTarget.style.borderColor = 'rgba(15, 20, 25, 0.1)'
+            e.currentTarget.style.background = 'rgba(255, 255, 255, 0.8)'
+            e.currentTarget.style.boxShadow = 'none'
+          }}
         />
       </div>
 
@@ -241,11 +288,34 @@ export function TourFilters({ availableCuisines, currentFilters }: TourFiltersPr
 
       {/* Desktop Filters */}
       <div className="hidden lg:block">
-        <div className="card">
-          <div className="p-6 border-b border-gray-200">
-            <h3 className="heading-lg text-gray-800">Filters</h3>
+        <div style={{
+          background: 'rgba(255, 255, 255, 0.8)',
+          backdropFilter: 'blur(20px) saturate(150%)',
+          borderRadius: '20px',
+          border: '1px solid rgba(15, 20, 25, 0.1)',
+          boxShadow: 'var(--shadow-lg)',
+          position: 'sticky',
+          top: '120px'
+        }}>
+          <div style={{
+            padding: '1.5rem',
+            borderBottom: '1px solid rgba(15, 20, 25, 0.1)'
+          }}>
+            <h3 style={{
+              fontSize: '1.5rem',
+              fontWeight: '700',
+              color: 'var(--color-primary)',
+              margin: 0
+            }}>
+              Filters
+            </h3>
           </div>
-          <div className="p-6 space-y-6">
+          <div style={{
+            padding: '1.5rem',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '1.5rem'
+          }}>
             {filterContent}
           </div>
         </div>

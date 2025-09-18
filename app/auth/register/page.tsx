@@ -1,18 +1,18 @@
 'use client'
 
 import { useState } from 'react'
-import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
+import NavScrollHandler from '../../components/NavScrollHandler'
 import { 
   Mail,
   Lock,
   Eye,
   EyeOff,
   User,
+  Users,
   Phone,
-  ChefHat,
   ArrowRight,
   CheckCircle
 } from 'lucide-react'
@@ -20,6 +20,7 @@ import {
 export default function RegisterPage() {
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
+  const [userType, setUserType] = useState<'user' | 'host'>('user')
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -50,31 +51,81 @@ export default function RegisterPage() {
 
   if (registered) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center py-12 px-4">
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          className="text-center"
-        >
-          <Card className="max-w-md mx-auto shadow-xl border-0">
-            <CardContent className="p-8">
-              <div className="bg-green-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-6">
-                <CheckCircle className="w-8 h-8 text-green-500" />
+      <>
+        <NavScrollHandler />
+        
+        {/* Modern Navigation */}
+        <nav className="nav">
+          <div className="container">
+            <div className="nav-content">
+              <Link href="/" className="logo">
+                Conquistador
+              </Link>
+              <div className="nav-links">
+                <Link href="/conquistatour">Experiences</Link>
+                <Link href="/leader/apply">Host</Link>
+                <Link href="/auth/login">Login</Link>
               </div>
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">Welcome to Culinary Conquistador!</h2>
-              <p className="text-gray-600 mb-6">
-                Your account has been created successfully. Check your email for verification instructions.
+            </div>
+          </div>
+        </nav>
+
+        <div className="min-h-screen" style={{ 
+          background: 'linear-gradient(135deg, #f8fafc 0%, #ffffff 100%)', 
+          display: 'flex', 
+          alignItems: 'center', 
+          justifyContent: 'center',
+          padding: '120px 1rem 2rem'
+        }}>
+          <div style={{ textAlign: 'center' }}>
+            <div style={{
+              background: 'rgba(255, 255, 255, 0.9)',
+              backdropFilter: 'blur(20px) saturate(150%)',
+              borderRadius: '20px',
+              padding: '3rem',
+              border: '1px solid rgba(15, 20, 25, 0.1)',
+              boxShadow: 'var(--shadow-xl)',
+              maxWidth: '500px'
+            }}>
+              <div style={{
+                width: '80px',
+                height: '80px',
+                background: 'linear-gradient(135deg, #10B981 0%, #059669 100%)',
+                borderRadius: '50%',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                margin: '0 auto 2rem',
+                boxShadow: 'var(--shadow-lg)'
+              }}>
+                <CheckCircle className="w-10 h-10 text-white" />
+              </div>
+              <h2 style={{
+                fontSize: '2rem',
+                fontWeight: '700',
+                color: 'var(--color-primary)',
+                marginBottom: '1rem',
+                letterSpacing: '-0.02em'
+              }}>
+                Welcome to Conquistador!
+              </h2>
+              <p style={{
+                fontSize: '1.1rem',
+                color: 'var(--color-neutral-600)',
+                marginBottom: '2rem',
+                lineHeight: '1.6'
+              }}>
+                Your {userType === 'user' ? 'traveler' : 'host'} account has been created successfully. 
+                Check your email for verification instructions.
               </p>
-              <Button asChild variant="premium" size="lg" className="w-full">
-                <Link href="/auth/login">
-                  Sign In to Your Account
-                  <ArrowRight className="w-4 h-4 ml-2" />
-                </Link>
-              </Button>
-            </CardContent>
-          </Card>
-        </motion.div>
-      </div>
+              <Link href="/auth/login" className="btn btn-primary" style={{ textDecoration: 'none' }}>
+                Sign In to Your Account
+                <ArrowRight className="w-4 h-4 ml-2" />
+              </Link>
+            </div>
+          </div>
+        </div>
+      </>
     )
   }
 
