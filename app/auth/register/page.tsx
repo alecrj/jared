@@ -130,200 +130,127 @@ export default function RegisterPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center py-12 px-4">
-      <div className="max-w-md w-full">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="text-center mb-8"
-        >
-          <div className="bg-gradient-to-r from-amber-500 via-orange-500 to-red-500 p-3 rounded-2xl w-16 h-16 mx-auto mb-4">
-            <ChefHat className="w-10 h-10 text-white" />
+    <>
+      <NavScrollHandler />
+
+      {/* Modern Navigation */}
+      <nav className="nav">
+        <div className="container">
+          <div className="nav-content">
+            <Link href="/" className="logo">
+              Conquistador
+            </Link>
+            <div className="nav-links">
+              <Link href="/conquistatour">Experiences</Link>
+              <Link href="/leader/apply">Host</Link>
+              <Link href="/auth/login">Login</Link>
+            </div>
           </div>
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Join the Adventure</h1>
-          <p className="text-gray-600">Create your account and discover amazing conquistatours</p>
-        </motion.div>
+        </div>
+      </nav>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1 }}
-        >
-          <Card className="shadow-xl border-0">
-            <CardContent className="p-8">
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      First Name
-                    </label>
-                    <div className="relative">
-                      <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-                      <input
-                        type="text"
-                        value={formData.firstName}
-                        onChange={(e) => handleInputChange('firstName', e.target.value)}
-                        className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
-                        placeholder="John"
-                        required
-                      />
-                    </div>
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Last Name
-                    </label>
-                    <input
-                      type="text"
-                      value={formData.lastName}
-                      onChange={(e) => handleInputChange('lastName', e.target.value)}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
-                      placeholder="Doe"
-                      required
-                    />
-                  </div>
-                </div>
+      <div className="min-h-screen" style={{
+        background: 'var(--color-secondary)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: 'var(--space-5xl) var(--space-lg) var(--space-2xl)'
+      }}>
+        <div style={{ maxWidth: '480px', width: '100%' }}>
+          <div style={{ textAlign: 'center', marginBottom: 'var(--space-2xl)' }}>
+            <div style={{
+              width: '72px',
+              height: '72px',
+              background: 'var(--color-brand-gradient)',
+              borderRadius: 'var(--radius-lg)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              margin: '0 auto var(--space-xl)',
+              boxShadow: 'var(--shadow-large)',
+              backdropFilter: 'var(--blur-sm)',
+              WebkitBackdropFilter: 'var(--blur-sm)'
+            }}>
+              <Users className="w-7 h-7 text-white" />
+            </div>
+            <h1 style={{
+              fontSize: 'clamp(var(--text-3xl), 4vw, var(--text-4xl))',
+              fontWeight: '700',
+              color: 'var(--color-primary)',
+              marginBottom: 'var(--space-sm)',
+              letterSpacing: '-0.03em',
+              fontFamily: "'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif"
+            }}>
+              Join the Adventure
+            </h1>
+            <p style={{
+              fontSize: 'var(--text-lg)',
+              color: 'var(--color-neutral-600)',
+              lineHeight: '1.6',
+              fontWeight: '400'
+            }}>
+              Create your account and discover amazing experiences
+            </p>
+          </div>
 
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Email Address
-                  </label>
-                  <div className="relative">
-                    <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-                    <input
-                      type="email"
-                      value={formData.email}
-                      onChange={(e) => handleInputChange('email', e.target.value)}
-                      className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
-                      placeholder="your@email.com"
-                      required
-                    />
-                  </div>
-                </div>
+          <div style={{
+            background: 'rgba(255, 255, 255, 0.95)',
+            backdropFilter: 'var(--blur-backdrop)',
+            WebkitBackdropFilter: 'var(--blur-backdrop)',
+            borderRadius: 'var(--radius-xl)',
+            padding: 'var(--space-2xl)',
+            border: '1px solid rgba(29, 29, 31, 0.08)',
+            boxShadow: 'var(--shadow-extra-large)'
+          }}>
+            <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-lg)' }}>
+              <p style={{
+                fontSize: 'var(--text-sm)',
+                color: 'var(--color-neutral-600)',
+                textAlign: 'center'
+              }}>
+                Registration temporarily disabled for demo
+              </p>
 
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Phone Number
-                  </label>
-                  <div className="relative">
-                    <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-                    <input
-                      type="tel"
-                      value={formData.phone}
-                      onChange={(e) => handleInputChange('phone', e.target.value)}
-                      className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
-                      placeholder="+1 (555) 123-4567"
-                    />
-                  </div>
-                </div>
+              <button
+                type="submit"
+                className="btn btn-primary"
+                disabled={true}
+                style={{
+                  width: '100%',
+                  justifyContent: 'center',
+                  opacity: '0.5',
+                  cursor: 'not-allowed'
+                }}
+              >
+                Create Account (Demo)
+              </button>
+            </form>
 
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Password
-                  </label>
-                  <div className="relative">
-                    <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-                    <input
-                      type={showPassword ? 'text' : 'password'}
-                      value={formData.password}
-                      onChange={(e) => handleInputChange('password', e.target.value)}
-                      className="w-full pl-10 pr-12 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
-                      placeholder="Create a strong password"
-                      required
-                    />
-                    <button
-                      type="button"
-                      onClick={() => setShowPassword(!showPassword)}
-                      className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
-                    >
-                      {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
-                    </button>
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Confirm Password
-                  </label>
-                  <div className="relative">
-                    <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-                    <input
-                      type={showConfirmPassword ? 'text' : 'password'}
-                      value={formData.confirmPassword}
-                      onChange={(e) => handleInputChange('confirmPassword', e.target.value)}
-                      className="w-full pl-10 pr-12 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
-                      placeholder="Confirm your password"
-                      required
-                    />
-                    <button
-                      type="button"
-                      onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                      className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
-                    >
-                      {showConfirmPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
-                    </button>
-                  </div>
-                </div>
-
-                <div className="space-y-3">
-                  <div className="flex items-center">
-                    <input
-                      id="agree-terms"
-                      type="checkbox"
-                      checked={formData.agreeToTerms}
-                      onChange={(e) => handleInputChange('agreeToTerms', e.target.checked)}
-                      className="w-4 h-4 text-orange-600 border-gray-300 rounded focus:ring-orange-500"
-                      required
-                    />
-                    <label htmlFor="agree-terms" className="ml-2 text-sm text-gray-600">
-                      I agree to the{' '}
-                      <Link href="/terms" className="text-orange-600 hover:text-orange-500">
-                        Terms of Service
-                      </Link>{' '}
-                      and{' '}
-                      <Link href="/privacy" className="text-orange-600 hover:text-orange-500">
-                        Privacy Policy
-                      </Link>
-                    </label>
-                  </div>
-                  <div className="flex items-center">
-                    <input
-                      id="newsletter"
-                      type="checkbox"
-                      checked={formData.subscribeNewsletter}
-                      onChange={(e) => handleInputChange('subscribeNewsletter', e.target.checked)}
-                      className="w-4 h-4 text-orange-600 border-gray-300 rounded focus:ring-orange-500"
-                    />
-                    <label htmlFor="newsletter" className="ml-2 text-sm text-gray-600">
-                      Subscribe to our newsletter for the latest conquistatours
-                    </label>
-                  </div>
-                </div>
-
-                <Button
-                  type="submit"
-                  variant="premium"
-                  size="lg"
-                  className="w-full"
-                  disabled={isLoading}
-                >
-                  {isLoading ? 'Creating Account...' : 'Create Account'}
-                  {!isLoading && <ArrowRight className="w-4 h-4 ml-2" />}
-                </Button>
-              </form>
-
-              <div className="mt-8 pt-6 border-t border-gray-200">
-                <p className="text-center text-sm text-gray-600">
-                  Already have an account?{' '}
-                  <Link href="/auth/login" className="font-medium text-orange-600 hover:text-orange-500">
-                    Sign in here
-                  </Link>
-                </p>
-              </div>
-            </CardContent>
-          </Card>
-        </motion.div>
+            <div style={{
+              marginTop: 'var(--space-2xl)',
+              paddingTop: 'var(--space-xl)',
+              borderTop: '1px solid rgba(29, 29, 31, 0.08)',
+              textAlign: 'center'
+            }}>
+              <p style={{
+                fontSize: 'var(--text-sm)',
+                color: 'var(--color-neutral-600)',
+                fontFamily: "'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif"
+              }}>
+                Already have an account?{' '}
+                <Link href="/auth/login" style={{
+                  fontWeight: '600',
+                  color: 'var(--color-accent)',
+                  textDecoration: 'none',
+                  transition: 'all 0.3s var(--ease-out-expo)'
+                }}>
+                  Sign in here
+                </Link>
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
+    </>
   )
 }

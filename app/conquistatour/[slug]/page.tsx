@@ -55,15 +55,28 @@ export default async function TourPage({ params }: TourPageProps) {
     notFound()
   }
 
+  // Convert tour to match component types
+  const tourForComponents = {
+    ...tour,
+    maxAge: tour.maxAge ?? undefined,
+    leader: {
+      ...tour.leader,
+      profile: tour.leader.profile ? {
+        displayName: tour.leader.profile.displayName,
+        avatarUrl: tour.leader.profile.avatarUrl ?? undefined
+      } : undefined
+    }
+  }
+
   return (
     <div className="min-h-screen bg-white">
-      <TourHero tour={tour} />
-      
+      <TourHero tour={tourForComponents as any} />
+
       <div className="container-airbnb py-8">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
           {/* Main content */}
           <div className="lg:col-span-2">
-            <TourDetails tour={tour} />
+            <TourDetails tour={tourForComponents as any} />
           </div>
           
           {/* Booking sidebar */}

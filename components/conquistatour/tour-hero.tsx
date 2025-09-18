@@ -80,7 +80,7 @@ export function TourHero({ tour }: TourHeroProps) {
         {/* Image indicators */}
         {heroImages.length > 1 && (
           <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex space-x-2">
-            {heroImages.map((_, index) => (
+            {heroImages.map((_: string, index: number) => (
               <button
                 key={index}
                 onClick={() => setCurrentImageIndex(index)}

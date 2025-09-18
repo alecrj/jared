@@ -192,11 +192,13 @@ export function TourDetails({ tour }: TourDetailsProps) {
             <h3 className="text-2xl font-bold mb-6 text-gray-900">Daily Itinerary</h3>
             <div className="space-y-6">
               {itinerary.map((day: any, index: number) => (
-                <motion.div
+                <div
                   key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1 }}
+                  style={{
+                    opacity: 0,
+                    animation: 'modernFadeIn 0.8s var(--ease-out-expo) forwards',
+                    animationDelay: `${index * 0.1}s`
+                  }}
                 >
                   <Card>
                     <CardHeader>
@@ -218,7 +220,7 @@ export function TourDetails({ tour }: TourDetailsProps) {
                       </ul>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </div>
               ))}
             </div>
           </div>

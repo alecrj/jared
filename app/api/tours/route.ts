@@ -197,7 +197,7 @@ export async function POST(request: NextRequest) {
     console.error('Error creating tour:', error)
     if (error instanceof z.ZodError) {
       return NextResponse.json(
-        { error: 'Validation failed', details: error.errors },
+        { error: 'Validation failed', details: error.issues },
         { status: 400 }
       )
     }
