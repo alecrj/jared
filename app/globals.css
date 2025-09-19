@@ -3,7 +3,8 @@
 @tailwind utilities;
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
 
 /* 2025 Modern Design System - Inspired by Apple, Airbnb, Uber */
 * {
@@ -13,38 +14,45 @@
 }
 
 :root {
-  /* Modern Color System - Adaptive & Contextual */
-  --color-primary: #1D1D1F;
-  --color-primary-light: #2D2D30;
-  --color-secondary: #F5F5F7;
-  --color-secondary-dark: #E8E8ED;
+  /* 2025 Premium Color System - Nature-Inspired */
+  --color-primary: #0A0F0A;
+  --color-primary-light: #1A1F1A;
+  --color-secondary: #FAFBFA;
+  --color-secondary-dark: #F0F2F0;
 
-  /* Apple-inspired Accent Colors */
-  --color-accent: #007AFF;
-  --color-accent-light: #5AC8FA;
-  --color-accent-gradient: linear-gradient(135deg, #007AFF 0%, #5AC8FA 100%);
+  /* Premium Green Palette */
+  --color-accent: #00A86B;
+  --color-accent-light: #10B981;
+  --color-accent-dark: #047857;
+  --color-accent-gradient: linear-gradient(135deg, #00A86B 0%, #10B981 100%);
 
-  /* Airbnb-inspired Brand Colors */
-  --color-brand: #FF385C;
-  --color-brand-light: #FF5A7C;
-  --color-brand-gradient: linear-gradient(135deg, #FF385C 0%, #FF5A7C 100%);
+  /* Sophisticated Brand Colors */
+  --color-brand: #059669;
+  --color-brand-light: #34D399;
+  --color-brand-dark: #065F46;
+  --color-brand-gradient: linear-gradient(135deg, #059669 0%, #34D399 100%);
 
   /* Semantic Colors */
   --color-success: #34C759;
   --color-warning: #FF9500;
   --color-error: #FF3B30;
 
-  /* Neutral Palette - More sophisticated */
-  --color-neutral-50: #FAFAFA;
-  --color-neutral-100: #F4F4F5;
-  --color-neutral-200: #E4E4E7;
-  --color-neutral-300: #D4D4D8;
-  --color-neutral-400: #A1A1AA;
-  --color-neutral-500: #71717A;
-  --color-neutral-600: #52525B;
-  --color-neutral-700: #3F3F46;
-  --color-neutral-800: #27272A;
-  --color-neutral-900: #18181B;
+  /* Premium Neutral Palette */
+  --color-neutral-50: #FAFBFA;
+  --color-neutral-100: #F4F6F4;
+  --color-neutral-200: #E5E8E5;
+  --color-neutral-300: #D1D6D1;
+  --color-neutral-400: #9CA39C;
+  --color-neutral-500: #6B726B;
+  --color-neutral-600: #4A524A;
+  --color-neutral-700: #374037;
+  --color-neutral-800: #252B25;
+  --color-neutral-900: #161B16;
+
+  /* 2025 Typography Scale */
+  --font-primary: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-display: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
 
   /* Modern Shadows - More pronounced for 3D effect */
   --shadow-soft: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
@@ -792,6 +800,13 @@ body {
     to {
       opacity: 1;
       transform: translateY(0) scale(1);
+    }
+  }
+
+  @keyframes fadeInUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
     }
   }
 }

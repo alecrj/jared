@@ -1,8 +1,10 @@
 import { PrismaClient } from '@prisma/client'
 import { notFound } from 'next/navigation'
-import { TourHero } from '@/components/conquistatour/tour-hero'
-import { TourDetails } from '@/components/conquistatour/tour-details'
-import { BookingCard } from '@/components/booking/booking-card'
+import { PremiumTourHero } from '@/components/conquistatour/premium-tour-hero'
+import { PremiumTourDetails } from '@/components/conquistatour/premium-tour-details'
+import { PremiumBookingCard } from '@/components/conquistatour/premium-booking-card'
+import { VideoGallery } from '@/components/conquistatour/video-gallery'
+import { RouteMap } from '@/components/conquistatour/route-map'
 
 const prisma = new PrismaClient()
 
@@ -69,24 +71,35 @@ export default async function TourPage({ params }: TourPageProps) {
   }
 
   return (
-    <div className="min-h-screen bg-white">
-      <TourHero tour={tourForComponents as any} />
+    <div className="min-h-screen" style={{
+      background: 'linear-gradient(135deg, var(--color-neutral-50) 0%, #ffffff 50%, var(--color-neutral-50) 100%)'
+    }}>
+      <PremiumTourHero tour={tourForComponents as any} />
 
-      <div className="container-airbnb py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+      <div className="container" style={{ padding: '64px 0' }}>
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: '1fr 400px',
+          gap: '64px',
+          alignItems: 'start'
+        }}>
           {/* Main content */}
-          <div className="lg:col-span-2">
-            <TourDetails tour={tourForComponents as any} />
+          <div>
+            <PremiumTourDetails tour={tourForComponents as any} />
           </div>
-          
+
           {/* Booking sidebar */}
-          <div className="lg:col-span-1">
-            <div className="sticky top-24">
-              <BookingCard tour={tour} departures={tour.departures} />
-            </div>
+          <div style={{ position: 'sticky', top: '120px' }}>
+            <PremiumBookingCard tour={tour} departures={tour.departures} />
           </div>
         </div>
       </div>
+
+      {/* Video Gallery Section */}
+      <VideoGallery tour={tourForComponents as any} />
+
+      {/* Interactive Route Map Section */}
+      <RouteMap tour={tourForComponents as any} />
     </div>
   )
 }

@@ -10,9 +10,10 @@ interface ToursGridProps {
   currentPage: number
   totalPages: number
   baseUrl: string
+  viewMode?: 'grid' | 'list'
 }
 
-export function ToursGrid({ tours, currentPage, totalPages, baseUrl }: ToursGridProps) {
+export function ToursGrid({ tours, currentPage, totalPages, baseUrl, viewMode = 'grid' }: ToursGridProps) {
   if (tours.length === 0) {
     return (
       <div style={{ textAlign: 'center', padding: '4rem 0' }}>
@@ -50,8 +51,13 @@ export function ToursGrid({ tours, currentPage, totalPages, baseUrl }: ToursGrid
 
   return (
     <>
-      {/* Experiences Grid */}
-      <div className="cards" style={{ marginBottom: '4rem' }}>
+      {/* Premium Experiences Grid */}
+      <div style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fill, minmax(360px, 1fr))',
+        gap: '32px',
+        marginBottom: '64px'
+      }}>
         {tours.map((tour, index) => (
           <ConquistaTourCard key={tour.id} tour={tour} index={index} />
         ))}
