@@ -139,15 +139,15 @@ export default async function ToursPage({ searchParams }: ToursPageProps) {
         <div className="container" style={{ paddingTop: '120px' }}>
           {/* Header */}
           <div className="section text-center">
-            <h1 style={{ 
-              fontSize: 'clamp(2.5rem, 5vw, 3.5rem)', 
-              fontWeight: '700', 
-              color: 'var(--color-primary)', 
+            <h1 style={{
+              fontSize: 'clamp(2.5rem, 5vw, 3.5rem)',
+              fontWeight: '700',
+              color: 'var(--color-primary)',
               marginBottom: '1.5rem',
               letterSpacing: '-0.02em',
               lineHeight: '1.2'
             }}>
-              Unique experiences
+              Extraordinary Journeys
             </h1>
             <p style={{
               fontSize: '1.2rem',
@@ -156,7 +156,7 @@ export default async function ToursPage({ searchParams }: ToursPageProps) {
               margin: '0 auto 4rem',
               lineHeight: '1.7'
             }}>
-              Discover authentic adventures and cultural experiences with passionate local guides around the world
+              Join small group adventures to discover the world's most captivating destinations with expert local guides
             </p>
           </div>
 

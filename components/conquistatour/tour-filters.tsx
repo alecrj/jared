@@ -166,34 +166,71 @@ export function TourFilters({ availableCuisines, currentFilters }: TourFiltersPr
 
       <Separator />
 
-      {/* Cuisine Type */}
+      {/* Experience Type - simplified */}
       <div className="space-y-4">
-        <div className="flex items-center gap-2">
-          <ChefHat className="w-4 h-4 text-primary" />
-          <h3 className="heading-sm text-gray-800">Cuisine</h3>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '1rem' }}>
+          <Calendar className="w-4 h-4" style={{ color: 'var(--color-accent)' }} />
+          <h3 style={{
+            fontSize: '1rem',
+            fontWeight: '600',
+            color: 'var(--color-primary)',
+            margin: 0
+          }}>
+            Experience Type
+          </h3>
         </div>
-        <div className="space-y-2 max-h-64 overflow-y-auto">
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
           <button
             onClick={() => updateFilter('cuisine', '')}
-            className={`w-full text-left px-3 py-2 body-sm rounded-lg transition-colors ${
-              !filters.cuisine 
-                ? 'bg-gray-100 text-gray-800 font-medium' 
-                : 'hover:bg-gray-50'
-            }`}
+            style={{
+              width: '100%',
+              textAlign: 'left',
+              padding: '12px 16px',
+              borderRadius: '12px',
+              border: !filters.cuisine ? '2px solid var(--color-accent)' : '1px solid rgba(15, 20, 25, 0.1)',
+              background: !filters.cuisine ? 'rgba(79, 70, 229, 0.1)' : 'rgba(255, 255, 255, 0.8)',
+              backdropFilter: 'blur(10px)',
+              fontSize: '0.875rem',
+              fontWeight: !filters.cuisine ? '600' : '400',
+              color: 'var(--color-primary)',
+              transition: 'all 0.3s ease',
+              cursor: 'pointer'
+            }}
           >
-            All Cuisines
+            All Experiences
           </button>
-          {availableCuisines.map((cuisine) => (
+          {availableCuisines.slice(0, 4).map((cuisine) => (
             <button
               key={cuisine}
               onClick={() => updateFilter('cuisine', cuisine)}
-              className={`w-full text-left px-3 py-2 body-sm rounded-lg transition-colors ${
-                filters.cuisine === cuisine
-                  ? 'bg-gray-100 text-gray-800 font-medium'
-                  : 'hover:bg-gray-50'
-              }`}
+              style={{
+                width: '100%',
+                textAlign: 'left',
+                padding: '12px 16px',
+                borderRadius: '12px',
+                border: filters.cuisine === cuisine ? '2px solid var(--color-accent)' : '1px solid rgba(15, 20, 25, 0.1)',
+                background: filters.cuisine === cuisine ? 'rgba(79, 70, 229, 0.1)' : 'rgba(255, 255, 255, 0.8)',
+                backdropFilter: 'blur(10px)',
+                fontSize: '0.875rem',
+                fontWeight: filters.cuisine === cuisine ? '600' : '400',
+                color: 'var(--color-primary)',
+                transition: 'all 0.3s ease',
+                cursor: 'pointer'
+              }}
+              onMouseEnter={(e) => {
+                if (filters.cuisine !== cuisine) {
+                  e.currentTarget.style.background = 'rgba(255, 255, 255, 1)'
+                  e.currentTarget.style.borderColor = 'var(--color-accent)'
+                }
+              }}
+              onMouseLeave={(e) => {
+                if (filters.cuisine !== cuisine) {
+                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.8)'
+                  e.currentTarget.style.borderColor = 'rgba(15, 20, 25, 0.1)'
+                }
+              }}
             >
-              {cuisine}
+              {cuisine} Experiences
             </button>
           ))}
         </div>
@@ -203,24 +240,69 @@ export function TourFilters({ availableCuisines, currentFilters }: TourFiltersPr
 
       {/* Price Range */}
       <div className="space-y-4">
-        <div className="flex items-center gap-2">
-          <DollarSign className="w-4 h-4 text-primary" />
-          <h3 className="heading-sm text-gray-800">Price Range</h3>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '1rem' }}>
+          <DollarSign className="w-4 h-4" style={{ color: 'var(--color-accent)' }} />
+          <h3 style={{
+            fontSize: '1rem',
+            fontWeight: '600',
+            color: 'var(--color-primary)',
+            margin: 0
+          }}>
+            Price Range
+          </h3>
         </div>
-        <div className="grid grid-cols-2 gap-2">
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
           <input
             type="number"
             placeholder="Min"
             value={filters.minPrice}
             onChange={(e) => updateFilter('minPrice', e.target.value)}
-            className="input"
+            style={{
+              padding: '12px 16px',
+              borderRadius: '12px',
+              border: '1px solid rgba(15, 20, 25, 0.1)',
+              background: 'rgba(255, 255, 255, 0.8)',
+              backdropFilter: 'blur(10px)',
+              fontSize: '0.875rem',
+              color: 'var(--color-primary)',
+              transition: 'all 0.3s ease'
+            }}
+            onFocus={(e) => {
+              e.currentTarget.style.borderColor = 'var(--color-accent)'
+              e.currentTarget.style.background = 'rgba(255, 255, 255, 1)'
+              e.currentTarget.style.boxShadow = '0 0 0 3px rgba(79, 70, 229, 0.1)'
+            }}
+            onBlur={(e) => {
+              e.currentTarget.style.borderColor = 'rgba(15, 20, 25, 0.1)'
+              e.currentTarget.style.background = 'rgba(255, 255, 255, 0.8)'
+              e.currentTarget.style.boxShadow = 'none'
+            }}
           />
           <input
             type="number"
             placeholder="Max"
             value={filters.maxPrice}
             onChange={(e) => updateFilter('maxPrice', e.target.value)}
-            className="input"
+            style={{
+              padding: '12px 16px',
+              borderRadius: '12px',
+              border: '1px solid rgba(15, 20, 25, 0.1)',
+              background: 'rgba(255, 255, 255, 0.8)',
+              backdropFilter: 'blur(10px)',
+              fontSize: '0.875rem',
+              color: 'var(--color-primary)',
+              transition: 'all 0.3s ease'
+            }}
+            onFocus={(e) => {
+              e.currentTarget.style.borderColor = 'var(--color-accent)'
+              e.currentTarget.style.background = 'rgba(255, 255, 255, 1)'
+              e.currentTarget.style.boxShadow = '0 0 0 3px rgba(79, 70, 229, 0.1)'
+            }}
+            onBlur={(e) => {
+              e.currentTarget.style.borderColor = 'rgba(15, 20, 25, 0.1)'
+              e.currentTarget.style.background = 'rgba(255, 255, 255, 0.8)'
+              e.currentTarget.style.boxShadow = 'none'
+            }}
           />
         </div>
       </div>
@@ -229,30 +311,67 @@ export function TourFilters({ availableCuisines, currentFilters }: TourFiltersPr
 
       {/* Duration */}
       <div className="space-y-4">
-        <div className="flex items-center gap-2">
-          <Calendar className="w-4 h-4 text-primary" />
-          <h3 className="heading-sm text-gray-800">Duration</h3>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '1rem' }}>
+          <Calendar className="w-4 h-4" style={{ color: 'var(--color-accent)' }} />
+          <h3 style={{
+            fontSize: '1rem',
+            fontWeight: '600',
+            color: 'var(--color-primary)',
+            margin: 0
+          }}>
+            Duration
+          </h3>
         </div>
-        <div className="space-y-2">
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
           <button
             onClick={() => updateFilter('duration', '')}
-            className={`w-full text-left px-3 py-2 body-sm rounded-lg transition-colors ${
-              !filters.duration 
-                ? 'bg-gray-100 text-gray-800 font-medium' 
-                : 'hover:bg-gray-50'
-            }`}
+            style={{
+              width: '100%',
+              textAlign: 'left',
+              padding: '12px 16px',
+              borderRadius: '12px',
+              border: !filters.duration ? '2px solid var(--color-accent)' : '1px solid rgba(15, 20, 25, 0.1)',
+              background: !filters.duration ? 'rgba(79, 70, 229, 0.1)' : 'rgba(255, 255, 255, 0.8)',
+              backdropFilter: 'blur(10px)',
+              fontSize: '0.875rem',
+              fontWeight: !filters.duration ? '600' : '400',
+              color: 'var(--color-primary)',
+              transition: 'all 0.3s ease',
+              cursor: 'pointer'
+            }}
           >
             Any duration
           </button>
-          {durations.map((duration) => (
+          {durations.slice(0, 6).map((duration) => (
             <button
               key={duration.value}
               onClick={() => updateFilter('duration', duration.value)}
-              className={`w-full text-left px-3 py-2 body-sm rounded-lg transition-colors ${
-                filters.duration === duration.value
-                  ? 'bg-gray-100 text-gray-800 font-medium'
-                  : 'hover:bg-gray-50'
-              }`}
+              style={{
+                width: '100%',
+                textAlign: 'left',
+                padding: '12px 16px',
+                borderRadius: '12px',
+                border: filters.duration === duration.value ? '2px solid var(--color-accent)' : '1px solid rgba(15, 20, 25, 0.1)',
+                background: filters.duration === duration.value ? 'rgba(79, 70, 229, 0.1)' : 'rgba(255, 255, 255, 0.8)',
+                backdropFilter: 'blur(10px)',
+                fontSize: '0.875rem',
+                fontWeight: filters.duration === duration.value ? '600' : '400',
+                color: 'var(--color-primary)',
+                transition: 'all 0.3s ease',
+                cursor: 'pointer'
+              }}
+              onMouseEnter={(e) => {
+                if (filters.duration !== duration.value) {
+                  e.currentTarget.style.background = 'rgba(255, 255, 255, 1)'
+                  e.currentTarget.style.borderColor = 'var(--color-accent)'
+                }
+              }}
+              onMouseLeave={(e) => {
+                if (filters.duration !== duration.value) {
+                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.8)'
+                  e.currentTarget.style.borderColor = 'rgba(15, 20, 25, 0.1)'
+                }
+              }}
             >
               {duration.label}
             </button>
@@ -264,8 +383,35 @@ export function TourFilters({ availableCuisines, currentFilters }: TourFiltersPr
       {hasActiveFilters && (
         <>
           <Separator />
-          <button onClick={clearFilters} className="btn btn-secondary btn-md w-full">
-            <X className="w-4 h-4 mr-2" />
+          <button
+            onClick={clearFilters}
+            style={{
+              width: '100%',
+              padding: '12px 16px',
+              borderRadius: '12px',
+              border: '1px solid rgba(239, 68, 68, 0.3)',
+              background: 'rgba(239, 68, 68, 0.1)',
+              backdropFilter: 'blur(10px)',
+              fontSize: '0.875rem',
+              fontWeight: '600',
+              color: 'rgb(239, 68, 68)',
+              transition: 'all 0.3s ease',
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '8px'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = 'rgba(239, 68, 68, 0.2)'
+              e.currentTarget.style.borderColor = 'rgba(239, 68, 68, 0.5)'
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = 'rgba(239, 68, 68, 0.1)'
+              e.currentTarget.style.borderColor = 'rgba(239, 68, 68, 0.3)'
+            }}
+          >
+            <X className="w-4 h-4" />
             Clear All Filters
           </button>
         </>
