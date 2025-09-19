@@ -4,55 +4,16 @@ generator client {
 
 datasource db {
   provider = "sqlite"
-  url      = env("DATABASE_URL")
+  url      = "file:./dev.db"
 }
 
-enum UserRole {
-  TRAVELER
-  LEADER
-  ADMIN
-}
-
-enum ConquistaTourStatus {
-  DRAFT
-  PENDING_APPROVAL
-  APPROVED
-  LIVE
-  PAUSED
-  CANCELLED
-}
-
-enum BookingStatus {
-  PENDING
-  CONFIRMED
-  CANCELLED
-  REFUNDED
-}
-
-enum PaymentType {
-  DEPOSIT
-  BALANCE
-  REFUND
-}
-
-enum PaymentStatus {
-  PENDING
-  COMPLETED
-  FAILED
-  REFUNDED
-}
-
-enum CancellationPolicy {
-  FLEXIBLE
-  MODERATE
-  STRICT
-}
+// SQLite doesn't support enums, using strings with default values
 
 model User {
   id        String   @id @default(cuid())
   email     String   @unique
   phone     String?
-  role      UserRole @default(TRAVELER)
+  role      String   @default("TRAVELER")
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -124,10 +85,10 @@ model ConquistaTour {
   videoUrl           String?
   pricePerPerson     Int
   depositPercentage  Float               @default(0.25)
-  cancellationPolicy CancellationPolicy  @default(MODERATE)
+  cancellationPolicy String              @default("MODERATE")
   minAge             Int                 @default(18)
   maxAge             Int?
-  status             ConquistaTourStatus @default(DRAFT)
+  status             String              @default("DRAFT")
   adminNotes         String?
   featuredOrder      Int?
   createdAt          DateTime            @default(now())
@@ -146,7 +107,7 @@ model Departure {
   startDate        DateTime
   endDate          DateTime
   availableSpots   Int
-  status           ConquistaTourStatus @default(LIVE)
+  status           String              @default("LIVE")
   createdAt        DateTime            @default(now())
 
   conquistatour ConquistaTour @relation(fields: [conquistatourId], references: [id])
@@ -160,7 +121,7 @@ model Booking {
   departureId     String
   travelerId      String
   participants    Int           @default(1)
-  status          BookingStatus @default(PENDING)
+  status          String        @default("PENDING")
   totalPrice      Int
   depositAmount   Int
   balanceDueAt    DateTime
@@ -200,10 +161,10 @@ model Traveler {
 model Payment {
   id                    String        @id @default(cuid())
   bookingId             String
-  type                  PaymentType
+  type                  String
   amount                Int
   stripePaymentIntentId String?
-  status                PaymentStatus @default(PENDING)
+  status                String        @default("PENDING")
   createdAt             DateTime      @default(now())
 
   booking Booking  @relation(fields: [bookingId], references: [id])
@@ -218,7 +179,7 @@ model Refund {
   bookingId String
   amount    Int
   reason    String
-  status    PaymentStatus @default(PENDING)
+  status    String        @default("PENDING")
   createdAt DateTime      @default(now())
 
   payment Payment @relation(fields: [paymentId], references: [id])
