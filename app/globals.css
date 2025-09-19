@@ -477,6 +477,7 @@ body {
   grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
   gap: var(--space-2xl);
   margin: var(--space-4xl) 0;
+  align-items: stretch;
 }
 
 .card {
@@ -489,6 +490,9 @@ body {
   position: relative;
   backdrop-filter: var(--blur-sm);
   -webkit-backdrop-filter: var(--blur-sm);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 .card::before {
@@ -531,6 +535,10 @@ body {
 
 .card-content {
   padding: var(--space-2xl);
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  justify-content: space-between;
 }
 
 .card h3 {

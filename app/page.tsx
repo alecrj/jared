@@ -110,8 +110,10 @@ export default async function Home() {
                 <div className="card">
                   <img src={experience.image} alt={experience.title} />
                   <div className="card-content">
-                    <h3>{experience.title}</h3>
-                    <p>{experience.location} · {experience.duration}</p>
+                    <div>
+                      <h3>{experience.title}</h3>
+                      <p>{experience.location} · {experience.duration}</p>
+                    </div>
                     <div className="price">${experience.price.toLocaleString()} per person</div>
                   </div>
                 </div>
